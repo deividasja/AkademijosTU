@@ -101,23 +101,6 @@ page 50137 "Auto Rent Header List"
                     ReturnCarFunction.ReturnCar(Rec."No.");
                 end;
             }
-
-
-            action(PrintAutoCardReport)
-            {
-                Caption = 'Print Auto Card';
-                ToolTip = 'Print Auto Card';
-
-                trigger OnAction()
-                var
-                    AutoRentHeader: Record "Auto Rent Header";
-
-                begin
-                    AutoRentHeader := Rec;
-                    AutoRentHeader.SetRecFilter();
-                    Report.RunModal(Report::"Auto Rent Card Report", true, false, AutoRentHeader);
-                end;
-            }
         }
     }
 }

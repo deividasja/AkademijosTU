@@ -52,4 +52,28 @@ page 50144 "Finished Auto Rent Header List"
             }
         }
     }
+
+
+    actions
+    {
+        area(Processing)
+        {
+            action(PrintAutoCardReport)
+            {
+                Caption = 'Print Auto Card';
+                ToolTip = 'Print Auto Card';
+
+                trigger OnAction()
+                var
+                    FinishedAutoRentHeader: Record "Finished Auto Rent Header";
+
+                begin
+                    FinishedAutoRentHeader := Rec;
+                    FinishedAutoRentHeader.SetRecFilter();
+                    Report.RunModal(Report::"Auto Rent Card Report", true, false, FinishedAutoRentHeader);
+                end;
+            }
+        }
+    }
+
 }

@@ -85,6 +85,17 @@ page 50138 "Auto Rent Header Card"
             part(Lines; "Auto Rent SubPage")
             {
                 SubPageLink = "Document No." = field("No.");
+
+                Editable = Rec.Status <> Rec.Status::Released;
+            }
+        }
+
+        area(FactBoxes)
+        {
+            part(MyPart1; "Driver's licence Image")
+            {
+                SubPageLink = "No." = field("No.");
+                Caption = 'Driver''s license';
             }
         }
     }
@@ -131,22 +142,6 @@ page 50138 "Auto Rent Header Card"
                     ReturnCarFunction: Codeunit "Return the car function";
                 begin
                     ReturnCarFunction.ReturnCar(Rec."No.");
-                end;
-            }
-
-            action(PrintAutoCardReport)
-            {
-                Caption = 'Print Auto Card';
-                ToolTip = 'Print Auto Card';
-
-                trigger OnAction()
-                var
-                    AutoRentHeader: Record "Auto Rent Header";
-
-                begin
-                    AutoRentHeader := Rec;
-                    AutoRentHeader.SetRecFilter();
-                    Report.RunModal(Report::"Auto Rent Card Report", true, false, AutoRentHeader);
                 end;
             }
         }

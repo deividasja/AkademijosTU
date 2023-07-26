@@ -22,6 +22,8 @@ table 50136 "Auto Rent Header"
                 CountDebt();
 
                 CheckClient();
+
+                Date := Today;
             end;
 
         }

@@ -4,7 +4,7 @@ page 50139 "Valid Auto Reservations List"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Valid Auto Reservation";
+    SourceTable = "Auto Reservation";
 
     AutoSplitKey = true;
     DelayedInsert = true;
@@ -40,26 +40,12 @@ page 50139 "Valid Auto Reservations List"
         }
     }
 
-    trigger OnOpenPage()
+    trigger OnOpenPage();
     var
         TodayDateTime: DateTime;
-        AutoReservationRec: Record "Auto Reservation";
-        ValidAutoReservationRec: Record "Valid Auto Reservation";
     begin
         TodayDateTime := System.CurrentDateTime;
-        ValidAutoReservationRec.DeleteAll();
-        AutoReservationRec.Reset();
-        AutoReservationRec.SetFilter(AutoReservationRec."Reserved until", '>=%1', TodayDateTime);
-        if AutoReservationRec.FindSet() then begin
-            repeat
-                ValidAutoReservationRec.Init;
-                ValidAutoReservationRec."Car No." := AutoReservationRec."Car No.";
-                ValidAutoReservationRec."Line No." := AutoReservationRec."Line No.";
-                ValidAutoReservationRec."Customer No." := AutoReservationRec."Customer No.";
-                ValidAutoReservationRec."Reserved from" := AutoReservationRec."Reserved from";
-                ValidAutoReservationRec."Reserved until" := AutoReservationRec."Reserved until";
-                ValidAutoReservationRec.Insert;
-            until AutoReservationRec.Next() = 0;
-        end;
+        Rec.Reset();
+        Rec.SetFilter("Reserved until", '>=%1', TodayDateTime);
     end;
 }

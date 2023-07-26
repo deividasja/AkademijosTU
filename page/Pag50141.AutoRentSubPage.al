@@ -29,6 +29,13 @@ page 50141 "Auto Rent SubPage"
     }
 
 
+    trigger OnModifyRecord(): Boolean
+    begin
+        if Rec."Line No." = 10000 then
+            Error('This line cannot be deleted');
+    end;
+
+
     trigger OnDeleteRecord(): Boolean
     begin
         if Rec."Line No." = 10000 then

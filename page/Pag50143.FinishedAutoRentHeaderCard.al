@@ -55,5 +55,14 @@ page 50143 "Finished Auto Rent Header Card"
                 SubPageLink = "Document No." = field("No.");
             }
         }
+
+        area(FactBoxes)
+        {
+            part(MyPart1; "Finished Driver's Image")
+            {
+                SubPageLink = "No." = field("No.");
+                Caption = 'Driver''s license';
+            }
+        }
     }
 }

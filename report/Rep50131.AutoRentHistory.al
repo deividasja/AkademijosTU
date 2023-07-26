@@ -24,9 +24,12 @@ report 50131 "Auto Rent History Report"
 
                 trigger OnPreDataItem()
                 begin
-                    SetRange("Reserved from", "Reserved until");
+                    SetFilter("Reserved from", '>=%1', StartingDateFilter);
+                    SetFilter("Reserved until", '<=%1', EndingDateFilter);
                 end;
             }
+
+            column(AutoRentHistoryTitle; AutoRentHistoryTitle) { }
         }
     }
 
@@ -41,11 +44,21 @@ report 50131 "Auto Rent History Report"
                     field(StartingDateFilterCtrl; StartingDateFilter)
                     {
                         Caption = 'Reserved from filter';
+                        trigger OnValidate()
+                        begin
+                            if (EndingDateFilter <> 0DT) and (StartingDateFilter > EndingDateFilter) then
+                                Error('The start date of the reservation cannot be later than the end date.');
+                        end;
 
                     }
                     field(EndingDateFilterCtrl; EndingDateFilter)
                     {
                         Caption = 'Reserved until filter';
+                        trigger OnValidate()
+                        begin
+                            if (EndingDateFilter <> 0DT) and (StartingDateFilter > EndingDateFilter) then
+                                Error('The start date of the reservation cannot be later than the end date.');
+                        end;
 
                     }
                 }
@@ -78,6 +91,8 @@ report 50131 "Auto Rent History Report"
         StartingDateFilter: DateTime;
         EndingDateFilter: DateTime;
 
+        AutoRentHistoryTitle: Label 'Auto Rent History Report';
+
     trigger OnInitReport()
     begin
         StartingDateFilter := 0DT;
@@ -88,6 +103,8 @@ report 50131 "Auto Rent History Report"
     trigger OnPreReport()
     begin
         if StartingDateFilter = 0DT then
-            Error('date filter was not specified');
+            Error('''Reserved from'' date filter was not specified');
+        if EndingDateFilter = 0DT then
+            Error('''Reserved until'' date filter was not specified');
     end;
 }

@@ -40,8 +40,6 @@ table 50140 "Finished Auto Rent Header"
         field(70; "Sum"; Decimal)
         {
             Caption = 'Sum';
-            FieldClass = FlowField;
-            CalcFormula = sum("Auto Rent Line".Sum where("Document No." = field("No.")));
         }
     }
 
