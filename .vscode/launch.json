@@ -10,7 +10,7 @@
             "tenant": "52f8c91c-aa8a-40ac-9cfd-2884240b0ad9",
             "startupObjectId": 50137,
             "startupObjectType": "Page",
-            "schemaUpdateMode": "ForceSync",
+            //"schemaUpdateMode": "ForceSync",
             "breakOnError": "All",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
